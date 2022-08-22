@@ -6,8 +6,8 @@
 
   <div class="container-sm">
     <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="Notion page url 을 입력하세요." aria-label="Notion page url" aria-describedby="button-addon2">
-      <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+      <input type="text" class="form-control" placeholder="Notion page url 을 입력하세요." aria-label="Notion page url" aria-describedby="button-addon2" v-model="notionUrl">
+      <button class="btn btn-outline-secondary" type="button" id="button-addon2" @click="getHTML">변환</button>
     </div>
   </div>
 
@@ -15,12 +15,10 @@
   <div class="container-md">
 
     <div class="bd-clipboard">
-      <button type="button" class="btn-clipboard" title data-bs-original-title="클립보드에 복사">Copy</button>
+      <button type="button" class="btn-clipboard" title="clipboard" data-bs-original-title="클립보드에 복사">Copy</button>
     </div>
-    <highlightjs
-        language="html"
-        :code=msg
-    />
+    <highlightjs language="html" :code=htmlResult />
+
   </div>
 </template>
 
@@ -28,8 +26,38 @@
 
 export default {
   name: 'HelloWorld',
-  props: {
-    msg: String
+  data() {
+    return {
+      notionUrl: "",
+      htmlResult: `<html lang=''>
+    <head>
+        <title> 예시 결과입니다. </title>
+    </head>
+    <body>
+        <div> 노션 링크를 입력하면 변환되는 결과를 티스토리에 업로드 하세요! </div>
+    </body>
+</html>`
+    }
+  },
+  methods: {
+
+    _validateUrl: function(notionUrl) {
+      if (!notionUrl.trim()) {
+        alert("노션 url을 입력해야합니다!");
+        return false;
+      }
+      return true;
+    },
+
+    getHTML: async function (){
+
+      if (this._validateUrl(this.notionUrl)) {
+
+        this.htmlResult = this.notionUrl;
+      }
+    },
+
+
   }
 }
 </script>

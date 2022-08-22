@@ -1,7 +1,6 @@
 <template>
-  <HelloWorld msg='<button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="Left popover">
-  Popover on left
-</button>'/>
+  <HelloWorld></HelloWorld>
+
 </template>
 
 <script>
